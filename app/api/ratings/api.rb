@@ -12,10 +12,9 @@ module Ratings
       end
 
       post do
-        Rating.create!({
-          movie_id: params[:movie_id],
-          grade: params[:grade]
-        })
+        Rating.create!(declared(params))
+      rescue StandardError => e
+        error! e, :unprocessable_entity
       end
     end
   end
